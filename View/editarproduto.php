@@ -1,0 +1,80 @@
+<?php
+session_start();
+if (empty($_SESSION['id_usuario'])) {
+    echo "<script>window.alert('Você precisa estar logado para acessar esta página.');</script>";
+    echo "<script>window.location.href='login.php';</script>";
+    exit();
+}
+include_once '../Controller/ProdutoController.php';
+include_once '../Db/database.php';
+$id = $_GET['id'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $nome = !empty($_POST['nome'])
+        ? $_POST['nome']
+        : null;
+
+    $descricao = !empty($_POST['descricao'])
+        ? $_POST['descricao']
+        : null;
+
+    $minimo = !empty($_POST['minimo'])
+        ? $_POST['minimo']
+        : null;
+
+    $estoque = !empty($_POST['estoque'])
+        ? $_POST['estoque']
+        : null;
+
+
+
+    $produtoController = new ProdutoController($pdo);
+    $resultado = $produtoController->editarProduto($id, $nome, $descricao, $minimo, $estoque);
+
+    if ($resultado) {
+        echo "<script>window.alert('Produto editado com sucesso!');</script>";
+        echo "<script>window.location.href='inicio.php';</script>";
+    } else {
+        echo "<script>window.alert('Erro ao editar produto.');</script>";
+    }
+}
+
+
+
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edição de Produto</title>
+</head>
+
+<body>
+    <form action="editarproduto.php?id=<?= $id ?>" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome"><br><br>
+
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao"><br><br>
+
+        <label for="minimo">Quantidade Mínima:</label>
+        <input type="number" id="minimo" name="minimo" min="1"><br><br>
+
+        <label for="estoque">Quantidade em Estoque:</label>
+        <input type="number" id="estoque" name="estoque" min="0"><br><br>
+
+        <input type="submit" value="Editar Produto">
+        <a href="inicio.php">Voltar</a>
+
+
+
+
+</body>
+
+</html>

@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include_once '../Db/database.php';
@@ -25,20 +24,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ? $_POST['senha']
         : null;
 
-  $id = $_SESSION['id_usuario'];
+    $id = $_SESSION['id_usuario'];
 
     $usuarioController = new UsuarioController($pdo);
     $resultado = $usuarioController->editar($nome, $email, $senha, $id);
 
     if ($resultado) {
-        if(!empty($nome)) {
+        if (!empty($nome)) {
             $_SESSION['nome'] = $nome;
         }
-        if(!empty($email)) {
+        if (!empty($email)) {
             $_SESSION['email'] = $email;
         }
         echo "<script>window.alert('Usuário editado com sucesso!');</script>";
-        echo "<script>window.location.href='inicio.php';</script>";                  
+        echo "<script>window.location.href='inicio.php';</script>";
     } else {
         echo "<script>window.alert('Erro ao editar usuário.');</script>";
     }
@@ -46,26 +45,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuário</title>
 </head>
+
 <body>
 
-<form action="editarusuario.php" method="POST">
-    <label for="nome">Nome:</label>
-    <input type="text" name="nome" id="nome" placeholder="<?php echo $_SESSION['nome']; ?>">
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" placeholder="<?php echo $_SESSION['email']; ?>">
-    <label for="senha">Senha:</label>
-    <input type="password" name="senha" id="senha" placeholder="Senha nova">
-    <button type="submit">Editar</button>
-    <a href="inicio.php">Voltar
-    </a>
-</form>
+    <form action="editarusuario.php" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" placeholder="<?php echo $_SESSION['nome']; ?>">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="<?php echo $_SESSION['email']; ?>">
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" id="senha" placeholder="Senha nova">
+        <button type="submit">Editar</button>
+        <a href="inicio.php">Voltar
+        </a>
+    </form>
 
 
 
 </body>
+
 </html>
