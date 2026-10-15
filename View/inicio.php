@@ -25,7 +25,6 @@ if(empty($_SESSION['id_usuario'])){
 <body>
 <header>
     <h1>Bem-vindo, <?php echo $_SESSION['nome']; ?>!</h1>
-    <h2><?php echo $_SESSION['id_usuario']; ?></h2>
     <a href="editarusuario.php">Editar</a>
     <a href="sair.php">Sair</a>
     <a href="cadastroproduto.php">Cadastrar Produto</a>
