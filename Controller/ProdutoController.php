@@ -24,8 +24,13 @@ public function buscarPalavraChave($palavra){
     return $this->produtoModel->buscaPalavraChave($palavra);
 }
 
+public function deletar($id){
+    return $this->produtoModel->deletar($id);
+}
 
-
+public function procurando($id){
+    return $this->produtoModel->procurando($id);
+}
 
 
 

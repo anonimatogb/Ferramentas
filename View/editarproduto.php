@@ -7,8 +7,10 @@ if (empty($_SESSION['id_usuario'])) {
 }
 include_once '../Controller/ProdutoController.php';
 include_once '../Db/database.php';
-$id = $_GET['id'];
 
+$id = $_GET['id'];
+$produtoController = new ProdutoController($pdo);
+$produto = $produtoController->procurando($id);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nome = !empty($_POST['nome'])
@@ -29,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    $produtoController = new ProdutoController($pdo);
     $resultado = $produtoController->editarProduto($id, $nome, $descricao, $minimo, $estoque);
 
     if ($nome == null && $descricao == null && $minimo == null && $estoque == null) {
@@ -60,16 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <form action="editarproduto.php?id=<?= $id ?>" method="POST">
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome"><br><br>
+        <input type="text" id="nome" name="nome" placeholder="<?=  $produto['nome']  ?>"><br><br>
 
         <label for="descricao">Descrição:</label>
-        <input type="text" id="descricao" name="descricao"><br><br>
+        <input type="text" id="descricao" name="descricao" placeholder="<?=  $produto['descricao']  ?>"><br><br>
 
         <label for="minimo">Quantidade Mínima:</label>
-        <input type="number" id="minimo" name="minimo" min="1"><br><br>
+        <input type="number" id="minimo" name="minimo" min="1" placeholder="<?=  $produto['minimo']  ?>"><br><br>
 
         <label for="estoque">Quantidade em Estoque:</label>
-        <input type="number" id="estoque" name="estoque" min="0"><br><br>
+        <input type="number" id="estoque" name="estoque" min="1" placeholder="<?=  $produto['estoque']  ?>"><br><br>
 
         <input type="submit" value="Editar Produto">
         <a href="inicio.php">Voltar</a>

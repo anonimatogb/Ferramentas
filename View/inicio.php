@@ -40,9 +40,15 @@ if(empty($_SESSION['id_usuario'])){
     <?php
     foreach ($produtos as $produto) {
         if($produto['estoque'] < $produto['minimo']){
-            echo "<h3 style='color: red;'>Produto: " . htmlspecialchars($produto['nome']) . " está abaixo do estoque mínimo!<h3/><a href='editarproduto.php?id=" . $produto['id'] . "'>Editar Produto</a><br>";
-           
-        }
+            echo "<table border='1' cellpadding='5' cellspacing='1'>";
+            echo "<tr>";
+            echo "<td style='color: red;'>Produto: " . htmlspecialchars($produto['nome']) . " está abaixo do estoque mínimo!<td/>
+            <td>";
+            echo "<a href='editarproduto.php?id=" . $produto['id'] . "'>Editar Produto</a></td>";
+            echo "<td><a href='deletarproduto.php?id=" . $produto['id'] . "'>Deletar Produto</a></td>";
+            echo "</tr>";
+            echo "</table>";
+        }   
     }
 
     ?>
@@ -56,8 +62,9 @@ if(empty($_SESSION['id_usuario'])){
     echo "<form action='inicio.php' method='POST'>";
     echo "<input type='text' id='palavra' name='palavra'>";
     echo "<input type='submit' value='Pesquisar Produto'>";
-    echo "<input type='submit' value='Limpar Pesquisa'>";
+    echo "<a href='inicio.php'>Limpar Pesquisa</a>";
     echo "</form>";
+ 
    if(!empty($palavras)){
         echo "<ul>";
         foreach ($palavras as $palavra) {
@@ -72,11 +79,12 @@ if(empty($_SESSION['id_usuario'])){
             echo "Quantidade Mínima: " . htmlspecialchars($palavra['minimo']) . "<br>";
             echo "Quantidade em Estoque: " . htmlspecialchars($palavra['estoque']) . "<br>";
             echo "<a href='editarproduto.php?id=" . $palavra['id'] . "'>Editar Produto</a><br>";
+            echo "<a href='deletarproduto.php?id=" . $palavra['id'] . "'>Deletar Produto</a><br>";
             echo "</li><br>";
-        }
-        echo "</ul>";
-   }
-   if (!empty($produtos) && empty($palavras)) {
+            }
+            echo "</ul>";
+            }
+            if (!empty($produtos) && empty($palavras)) {
         echo "<ul>";
         foreach ($produtos as $produto) {
             if($produto['estoque'] < $produto['minimo']){
@@ -90,10 +98,14 @@ if(empty($_SESSION['id_usuario'])){
             echo "Quantidade Mínima: " . htmlspecialchars($produto['minimo']) . "<br>";
             echo "Quantidade em Estoque: " . htmlspecialchars($produto['estoque']) . "<br>";
             echo "<a href='editarproduto.php?id=" . $produto['id'] . "'>Editar Produto</a><br>";
+            echo "<a href='deletarproduto.php?id=" . $produto['id'] . "'>Deletar Produto</a><br>";
             echo "</li><br>";
         }
         echo "</ul>";
     } 
+    if(empty($produtos) && empty($palavras)){
+echo"Nenhum Produto Cadastrado";
+    }
 
     
     ?>

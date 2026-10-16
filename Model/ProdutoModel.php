@@ -51,7 +51,6 @@ class ProdutosModel
             $stmt->bindParam(':estoque', $estoque);
             $stmt->bindParam(':id', $id);
             return $stmt->execute();
-
         } catch (PDOException $e) {
             echo "Erro ao editar produto: " . $e->getMessage();
             return false;
@@ -59,24 +58,48 @@ class ProdutosModel
     }
 
 
-    public function buscaPalavraChave($palavra) {
-    try {
-        $stmt = $this->pdo->prepare("
+    public function buscaPalavraChave($palavra)
+    {
+        try {
+            $stmt = $this->pdo->prepare("
             SELECT * FROM produtos
             WHERE nome LIKE :nome
                OR descricao LIKE :descricao
         ");
 
-        $stmt->execute([
-            ':nome' => "%$palavra%",
-            ':descricao' => "%$palavra%"
-        ]);
+            $stmt->execute([
+                ':nome' => "%$palavra%",
+                ':descricao' => "%$palavra%"
+            ]);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    } catch (PDOException $e) {
-        echo "Erro ao procurar produtos: " . $e->getMessage();
-        return false;
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erro ao procurar produtos: " . $e->getMessage();
+            return false;
+        }
     }
-}
+    public function deletar($id)
+    {
+        try {
+            $stmt = $this->pdo->prepare("DELETE FROM produtos WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Erro ao excluir produto: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function procurando($id)
+    {
+        try {
+            $stmt = $this->pdo->prepare("SELECT * FROM produtos WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erro ao excluir produto: " . $e->getMessage();
+            return false;
+        }
+    }
 }
