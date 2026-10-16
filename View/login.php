@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $usuarioController = new UsuarioController($pdo);
     $usuario = $usuarioController->login($email, $senha);
+    
     if ($usuario) {
         session_start();
         $_SESSION['id_usuario'] = $usuario['id'];

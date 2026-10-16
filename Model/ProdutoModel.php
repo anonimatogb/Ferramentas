@@ -45,13 +45,13 @@ class ProdutosModel
         try {
             $stmt = $this->pdo->prepare("UPDATE produtos SET nome = COALESCE(:nome, nome), descricao = COALESCE(:descricao, descricao), minimo = COALESCE(:minimo, minimo), estoque = COALESCE(:estoque, estoque) WHERE id = :id");
 
-            $stmt->bindValue(':nome', $nome);
-            $stmt->bindValue(':descricao', $descricao);
-            $stmt->bindValue(':minimo', $minimo);
-            $stmt->bindValue(':estoque', $estoque);
-            $stmt->bindValue(':id', $id);
-
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':descricao', $descricao);
+            $stmt->bindParam(':minimo', $minimo);
+            $stmt->bindParam(':estoque', $estoque);
+            $stmt->bindParam(':id', $id);
             return $stmt->execute();
+
         } catch (PDOException $e) {
             echo "Erro ao editar produto: " . $e->getMessage();
             return false;

@@ -13,11 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recupera os dados atuais da sessão ou do formulário
     $nome = !empty($_POST['nome'])
         ? trim($_POST['nome'])
-        : $_SESSION['nome'];
+        : null;
 
     $email = !empty($_POST['email'])
         ? trim($_POST['email'])
-        : $_SESSION['email'];
+        : null;
 
     // Senha vazia significa manter a senha atual
     $senha = !empty($_POST['senha'])
@@ -26,17 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $id = $_SESSION['id_usuario'];
 
+    
     $usuarioController = new UsuarioController($pdo);
     $resultado = $usuarioController->editar($nome, $email, $senha, $id);
-
-    if ($resultado) {
-        if (!empty($nome)) {
+    
+    if($nome == null && $email == null && $senha==null){
+echo "<script>window.alert('Insira ao menos um registro para edita-lo')</script>";
+}elseif ($resultado) {
+        
+ if (!empty($nome)) {
             $_SESSION['nome'] = $nome;
         }
         if (!empty($email)) {
             $_SESSION['email'] = $email;
         }
-        echo "<script>window.alert('Usuário editado com sucesso!');</script>";
+echo "<script>window.alert('Usuário editado com sucesso!');</script>";
         echo "<script>window.location.href='inicio.php';</script>";
     } else {
         echo "<script>window.alert('Erro ao editar usuário.');</script>";

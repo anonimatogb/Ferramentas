@@ -32,7 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $produtoController = new ProdutoController($pdo);
     $resultado = $produtoController->editarProduto($id, $nome, $descricao, $minimo, $estoque);
 
-    if ($resultado) {
+    if ($nome == null && $descricao == null && $minimo == null && $estoque == null) {
+        echo "<script>window.alert('Insira ao menos um registro para edita-lo')</script>";
+    } elseif ($resultado) {
         echo "<script>window.alert('Produto editado com sucesso!');</script>";
         echo "<script>window.location.href='inicio.php';</script>";
     } else {
