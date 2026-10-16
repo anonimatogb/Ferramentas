@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </select>
             <input type='number' id='quantidade' name='quantidade'min='1' value='1'>
               <input type='hidden' id='id_produto' name='id_produto' value=' " . $produto['id'] . " '>
+              <input type='hidden' id='estoque' name='estoque' value=' " . $produto['estoque'] . " '>
               <input type='submit' value='Enviar'>
             </form></td>";
                 echo "<td><a href='editarproduto.php?id=" . $produto['id'] . "'>Editar Produto</a></td>";
@@ -99,6 +100,7 @@ Deletar Produto</a></td>";
                 </select>
             <input type='number' id='quantidade' name='quantidade'min='1' value='1'>
               <input type='hidden' id='id_produto' name='id_produto' value=' " . $produto['id'] . " '>
+              <input type='hidden' id='estoque' name='estoque' value=' " . $produto['estoque'] . " '>
               <input type='submit' value='Enviar'>
             </form><br>";
                 echo "<a href='editarproduto.php?id=" . $palavra['id'] . "'>Editar Produto</a><br>";
@@ -129,6 +131,7 @@ Deletar Produto</a><br>";
                 </select>
             <input type='number' id='quantidade' name='quantidade'min='1' value='1'>
               <input type='hidden' id='id_produto' name='id_produto' value=' " . $produto['id'] . " '>
+              <input type='hidden' id='estoque' name='estoque' value=' " . $produto['estoque'] . " '>
               <input type='submit' value='Enviar'>
             </form><br>";
                 echo "<a href='editarproduto.php?id=" . $produto['id'] . "'>Editar Produto</a><br>";

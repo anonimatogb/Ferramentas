@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipo = $_POST['tipo'];
     $id_produto = $_POST['id_produto'];
     $quantidade = $_POST['quantidade'];
-   
+    $estoque = $_POST['estoque'];
 
     $movimentacaoController = new MovimentacaoController($pdo);
     $produtoController = new ProdutoController($pdo);
@@ -25,6 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }else{
         $produto = $produtoController->maisum($id_produto,$quantidade);
     }
+    if($estoque < $quantidade && $tipo=='saida'){
+        echo"<script>window.alert('QUANTIDADE DE RETIRADA MAIOR QUE ESTOQUE')</script>";
+         echo "<script>window.location.href='inicio.php';</script>";
+    }else{
 
     $resultado = $movimentacaoController->movimento($_SESSION['id_usuario'],$id_produto,$quantidade,$tipo);
 
@@ -33,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<script>window.location.href='inicio.php';</script>";                  
     } else {
         echo "<script>window.alert('Erro ao movimentar produto.');</script>";
+    }
     }
 }
 
