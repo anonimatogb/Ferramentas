@@ -32,7 +32,12 @@ public function procurando($id){
     return $this->produtoModel->procurando($id);
 }
 
-
+public function menosum($id,$quantidade){
+    return $this->produtoModel->menosum($id,$quantidade);
+}
+public function maisum($id,$quantidade){
+    return $this->produtoModel->maisum($id,$quantidade);
+}
 
 }
 

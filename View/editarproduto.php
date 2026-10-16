@@ -59,6 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <header>
+        <h1>Bem-vindo, <?php $_SESSION['nome'] ?>!</h1>
+        <a href="inicio.php">Inicio</a>
+        <a href="editarusuario.php">Editar</a>
+        <a href="cadastroproduto.php">Cadastrar Produto</a>
+        <a href="movimentacao.php">Histórico Movimentações</a>
+        <a href="sair.php">Sair</a>
+    </header>
     <form action="editarproduto.php?id=<?= $id ?>" method="POST">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" placeholder="<?=  $produto['nome']  ?>"><br><br>

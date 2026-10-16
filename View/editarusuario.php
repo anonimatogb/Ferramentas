@@ -57,6 +57,14 @@ echo "<script>window.alert('Usuário editado com sucesso!');</script>";
 </head>
 
 <body>
+    <header>
+        <h1>Bem-vindo, <?php $_SESSION['nome']  ?>!</h1>
+        <a href="inicio.php">Inicio</a>
+        <a href="editarusuario.php">Editar</a>
+        <a href="cadastroproduto.php">Cadastrar Produto</a>
+        <a href="movimentacao.php">Histórico Movimentações</a>
+        <a href="sair.php">Sair</a>
+    </header>
 
     <form action="editarusuario.php" method="POST">
         <label for="nome">Nome:</label>

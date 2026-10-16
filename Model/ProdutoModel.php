@@ -102,4 +102,30 @@ class ProdutosModel
             return false;
         }
     }
+
+    public function menosum($id, $quantidade)
+    {
+        try {
+            $stmt = $this->pdo->prepare("UPDATE produtos SET estoque = estoque - :quantidade WHERE id = :id AND estoque >= :quantidade");
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':quantidade', $quantidade);
+            return  $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Erro ao reduzir estoque: " . $e->getMessage();
+            return false;
+        }
+    }
+
+       public function maisum($id, $quantidade)
+    {
+        try {
+            $stmt = $this->pdo->prepare("UPDATE produtos SET estoque = estoque + :quantidade WHERE id = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':quantidade', $quantidade);
+            return  $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Erro ao reduzir estoque: " . $e->getMessage();
+            return false;
+        }
+    }
 }

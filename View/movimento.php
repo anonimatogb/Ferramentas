@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once '../Controller/MovimentacaoController.php';
+include_once '../Controller/ProdutoController.php';
 include_once '../Db/database.php';
 
 if(empty($_SESSION['id_usuario'])){
@@ -10,13 +11,22 @@ if(empty($_SESSION['id_usuario'])){
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_usuario = $_POST['id_usuario'];
+    $tipo = $_POST['tipo'];
     $id_produto = $_POST['id_produto'];
     $quantidade = $_POST['quantidade'];
    
 
     $movimentacaoController = new MovimentacaoController($pdo);
-    $resultado = $movimentacaoController->movimento($id_usuario,$id_produto,$quantidade);
+    $produtoController = new ProdutoController($pdo);
+
+    if($tipo =='saida'){
+        
+    $produto = $produtoController->menosum($id_produto,$quantidade);
+    }else{
+        $produto = $produtoController->maisum($id_produto,$quantidade);
+    }
+
+    $resultado = $movimentacaoController->movimento($_SESSION['id_usuario'],$id_produto,$quantidade,$tipo);
 
     if ($resultado) {
         echo "<script>window.alert('Movimentação realizada com sucesso!');</script>";
