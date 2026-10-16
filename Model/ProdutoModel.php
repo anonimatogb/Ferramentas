@@ -57,4 +57,26 @@ class ProdutosModel
             return false;
         }
     }
+
+
+    public function buscaPalavraChave($palavra) {
+    try {
+        $stmt = $this->pdo->prepare("
+            SELECT * FROM produtos
+            WHERE nome LIKE :nome
+               OR descricao LIKE :descricao
+        ");
+
+        $stmt->execute([
+            ':nome' => "%$palavra%",
+            ':descricao' => "%$palavra%"
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (PDOException $e) {
+        echo "Erro ao procurar produtos: " . $e->getMessage();
+        return false;
+    }
+}
 }

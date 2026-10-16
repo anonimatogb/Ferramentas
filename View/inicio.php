@@ -12,7 +12,11 @@ if(empty($_SESSION['id_usuario'])){
 
     $produtoController = new ProdutoController($pdo);
     $produtos = $produtoController->listarProdutos();
-
+     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $palavra = $_POST['palavra'];
+        $palavras = $produtoController->buscarPalavraChave($palavra);
+        }
+   
 ?>
 
 <!DOCTYPE html>
@@ -46,9 +50,33 @@ if(empty($_SESSION['id_usuario'])){
 </div>
 <div class="content">
     <h2>Produtos Cadastrados</h2>
+   
     <?php
-
-    if (!empty($produtos)) {
+    
+    echo "<form action='inicio.php' method='POST'>";
+    echo "<input type='text' id='palavra' name='palavra'>";
+    echo "<input type='submit' value='Pesquisar Produto'>";
+    echo "<input type='submit' value='Limpar Pesquisa'>";
+    echo "</form>";
+   if(!empty($palavras)){
+        echo "<ul>";
+        foreach ($palavras as $palavra) {
+            if($palavra['estoque'] < $palavra['minimo']){
+                echo "<li style='color: red;'>";
+                echo "<strong>Atenção: Estoque abaixo do mínimo!</strong><br>";
+            } else {
+                echo "<li style='color: green;'>";
+            }
+            echo "Nome: " . htmlspecialchars($palavra['nome']) . "<br>";
+            echo "Descrição: " . htmlspecialchars($palavra['descricao']) . "<br>";
+            echo "Quantidade Mínima: " . htmlspecialchars($palavra['minimo']) . "<br>";
+            echo "Quantidade em Estoque: " . htmlspecialchars($palavra['estoque']) . "<br>";
+            echo "<a href='editarproduto.php?id=" . $palavra['id'] . "'>Editar Produto</a><br>";
+            echo "</li><br>";
+        }
+        echo "</ul>";
+   }
+   if (!empty($produtos) && empty($palavras)) {
         echo "<ul>";
         foreach ($produtos as $produto) {
             if($produto['estoque'] < $produto['minimo']){
@@ -65,9 +93,9 @@ if(empty($_SESSION['id_usuario'])){
             echo "</li><br>";
         }
         echo "</ul>";
-    } else {
-        echo "<p>Nenhum produto cadastrado.</p>";
-    }
+    } 
+
+    
     ?>
 
 

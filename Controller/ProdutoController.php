@@ -20,7 +20,9 @@ class ProdutoController {
         return $this->produtoModel->editarProduto($id, $nome, $descricao, $minimo, $estoque);
     }
 
-
+public function buscarPalavraChave($palavra){
+    return $this->produtoModel->buscaPalavraChave($palavra);
+}
 
 
 
