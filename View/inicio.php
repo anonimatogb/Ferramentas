@@ -45,7 +45,9 @@ if(empty($_SESSION['id_usuario'])){
             echo "<td style='color: red;'>Produto: " . htmlspecialchars($produto['nome']) . " está abaixo do estoque mínimo!<td/>
             <td>";
             echo "<a href='editarproduto.php?id=" . $produto['id'] . "'>Editar Produto</a></td>";
-            echo "<td><a href='deletarproduto.php?id=" . $produto['id'] . "'>Deletar Produto</a></td>";
+            echo "<td><a href='deletarproduto.php?id=" . $produto['id'] . "'
+onclick=\"return confirm('Tem certeza que deseja excluir este produto?')\">
+Deletar Produto</a></td>";
             echo "</tr>";
             echo "</table>";
         }   
@@ -79,7 +81,9 @@ if(empty($_SESSION['id_usuario'])){
             echo "Quantidade Mínima: " . htmlspecialchars($palavra['minimo']) . "<br>";
             echo "Quantidade em Estoque: " . htmlspecialchars($palavra['estoque']) . "<br>";
             echo "<a href='editarproduto.php?id=" . $palavra['id'] . "'>Editar Produto</a><br>";
-            echo "<a href='deletarproduto.php?id=" . $palavra['id'] . "'>Deletar Produto</a><br>";
+            echo "<a href='deletarproduto.php?id=" . $produto['id'] . "'
+onclick=\"return confirm('Tem certeza que deseja excluir este produto?')\">
+Deletar Produto</a><br>";
             echo "</li><br>";
             }
             echo "</ul>";
@@ -98,7 +102,9 @@ if(empty($_SESSION['id_usuario'])){
             echo "Quantidade Mínima: " . htmlspecialchars($produto['minimo']) . "<br>";
             echo "Quantidade em Estoque: " . htmlspecialchars($produto['estoque']) . "<br>";
             echo "<a href='editarproduto.php?id=" . $produto['id'] . "'>Editar Produto</a><br>";
-            echo "<a href='deletarproduto.php?id=" . $produto['id'] . "'>Deletar Produto</a><br>";
+            echo "<a href='deletarproduto.php?id=" . $produto['id'] . "'
+onclick=\"return confirm('Tem certeza que deseja excluir este produto?')\">
+Deletar Produto</a><br>";
             echo "</li><br>";
         }
         echo "</ul>";
